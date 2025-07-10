@@ -6,12 +6,11 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:postgres@localhost:5432/eventos_db"
+  url      = env("DATABASE_URL")
 }
 
 model Event {
@@ -22,6 +21,8 @@ model Event {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   enrollments Enrollment[]
+
+  @@map("Evento")
 }
 
 model Participant {
@@ -32,6 +33,8 @@ model Participant {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   enrollments Enrollment[]
+
+  @@map("Participante")
 }
 
 model Enrollment {
@@ -43,4 +46,5 @@ model Enrollment {
   createdAt     DateTime    @default(now())
 
   @@unique([eventId, participantId])
+  @@map("Inscricao")
 }

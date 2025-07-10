@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { eventService } from '../services/eventService';
 import { participantService } from '../services/participantService';
+import { validateUUID } from '../utils/validation';
 
 export const eventController = {
   // Criar um novo evento
@@ -46,6 +47,11 @@ export const eventController = {
   getEventById: async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
+      
+      if (!validateUUID(id)) {
+        return res.status(400).json({ error: 'ID do evento inválido' });
+      }
+      
       const event = await eventService.getEventById(id);
 
       if (!event) {

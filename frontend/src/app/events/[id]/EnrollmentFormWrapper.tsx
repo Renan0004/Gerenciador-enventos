@@ -12,6 +12,7 @@ export default function EnrollmentFormWrapper({ eventId }: EnrollmentFormWrapper
   
   const handleSuccess = () => {
     // Atualizar a página para mostrar o novo participante
+    console.log('handleSuccess');
     router.refresh();
   };
   

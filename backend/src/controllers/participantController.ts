@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { participantService } from '../services/participantService';
+import { validateEmail, validatePhone, validateUUID } from '../utils/validation';
 
 export const participantController = {
   // Criar um novo participante
@@ -12,9 +13,13 @@ export const participantController = {
       }
 
       // Verificar se o email é válido
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
+      if (!validateEmail(email)) {
         return res.status(400).json({ error: 'Email inválido' });
+      }
+
+      // Verificar se o telefone é válido
+      if (!validatePhone(phone)) {
+        return res.status(400).json({ error: 'Telefone inválido. O telefone deve conter 10 ou 11 dígitos.' });
       }
 
       // Verificar se já existe um participante com este email

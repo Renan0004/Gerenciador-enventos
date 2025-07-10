@@ -1,52 +1,72 @@
-# Gerenciador de Eventos
+# 🎉 Gerenciador de Eventos
 
-Sistema de gerenciamento de eventos e participantes desenvolvido com Node.js, TypeScript, Express, Prisma e PostgreSQL no backend, e React, TypeScript, Next.js e Tailwind CSS no frontend.
+Sistema fullstack para gerenciamento de eventos e participantes desenvolvido como parte de um teste técnico.
 
-## Estrutura do Projeto
+## 🛠️ Tecnologias Utilizadas
 
-O projeto está dividido em duas partes:
+### Backend
+- **Node.js** com **TypeScript**
+- **Express.js** para API REST
+- **Prisma** como ORM
+- **PostgreSQL** como banco de dados
 
-- `backend`: API REST desenvolvida com Node.js, TypeScript, Express e Prisma
-- `frontend`: Interface de usuário desenvolvida com React, TypeScript, Next.js e Tailwind CSS
+### Frontend
+- **React** com **TypeScript**
+- **Next.js** para framework
+- **Tailwind CSS** para estilização
+- **Context API** para gerenciamento de estado
 
-## Requisitos
+## 📁 Estrutura do Projeto
 
-- Node.js v18 ou superior
-- PostgreSQL
-- NPM ou Yarn
+## 🛠️ Tecnologias Utilizadas
 
-## Configuração do Backend
+## 🔧 Pré-requisitos
 
-1. Navegue até a pasta do backend:
+- **Node.js** v18 ou superior
+- **PostgreSQL** v13 ou superior
+- **npm** ou **yarn**
+
+## 🚀 Configuração e Instalação
+
+### 1. Clone o repositório
+```bash
+git clone <url-do-repositorio>
+cd Gerenciador-enventos
+```
+
+### 2. Configuração do Backend
 
 ```bash
+# Navegue para a pasta do backend
 cd backend
-```
 
-2. Instale as dependências:
-
-```bash
+# Instale as dependências
 npm install
+
+# Configure as variáveis de ambiente
+# Crie um arquivo .env baseado no .env.example
+cp .env.example .env
 ```
 
-3. Configure o arquivo `.env` com suas variáveis de ambiente:
-
-```
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/eventos_db"
+Edite o arquivo `.env` com suas configurações:
+```env
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/eventos_db"
 PORT=3001
+NODE_ENV=development
 ```
 
-4. Execute as migrations do Prisma para criar o banco de dados:
-
 ```bash
+# Gere o cliente Prisma
+npx prisma generate
+
+# Execute as migrations
 npx prisma migrate dev --name init
-```
 
-5. Inicie o servidor de desenvolvimento:
-
-```bash
+# Inicie o servidor
 npm run dev
 ```
+
+O backend estará rodando em `http://localhost:3001`
 
 ## API Endpoints
 
@@ -65,27 +85,38 @@ npm run dev
 - `GET /participants/:id` - Obter detalhes de um participante
 - `GET /participants/:id/events` - Listar eventos de um participante
 
-## Configuração do Frontend
-
-1. Navegue até a pasta do frontend:
+### 3. Configuração do Frontend
 
 ```bash
+# Em um novo terminal, navegue para a pasta do frontend
 cd frontend
-```
 
-2. Instale as dependências:
-
-```bash
+# Instale as dependências
 npm install
+
+# Configure as variáveis de ambiente (opcional)
+# Crie um arquivo .env.local baseado no .env.example
+cp .env.example .env.local
 ```
 
-3. Inicie o servidor de desenvolvimento:
+Edite o arquivo `.env.local` se necessário:
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
 
 ```bash
+# Inicie o servidor de desenvolvimento
 npm run dev
 ```
 
-4. Acesse a aplicação em `http://localhost:3000`
+O frontend estará rodando em `http://localhost:3000`
+
+## 🧪 Testando a Aplicação
+
+1. Acesse `http://localhost:3000`
+2. Navegue para "Participantes" e crie alguns participantes
+3. Navegue para "Eventos" e crie alguns eventos
+4. Acesse os detalhes de um evento e inscreva participantes
 
 ## Tecnologias Utilizadas
 
