@@ -12,7 +12,7 @@ export const eventController = {
       if (!name || !description || !date) {
         return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
       }
-
+ 
       const eventDate = new Date(date);
       
       if (isNaN(eventDate.getTime())) {
@@ -94,8 +94,8 @@ export const eventController = {
       const { eventId } = req.params;
       const { participantId } = req.body;
 
-      if (!participantId) {
-        return res.status(400).json({ error: 'ID do participante é obrigatório' });
+      if (!participantId || !validateUUID(participantId)) {
+        return res.status(400).json({ error: 'ID do participante inválido' });
       }
 
       // Verificar se o evento existe
