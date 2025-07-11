@@ -1,8 +1,8 @@
 # 🎉 Gerenciador de Eventos
 
-Sistema fullstack para gerenciamento de eventos e participantes desenvolvido como parte de um teste técnico.
+Sistema fullstack para gerenciamento de eventos e participantes, permitindo criar eventos, cadastrar participantes e gerenciar inscrições.
 
-## 🛠️ Tecnologias Utilizadas
+## 🚀 Tecnologias
 
 ### Backend
 - **Node.js** com **TypeScript**
@@ -16,119 +16,54 @@ Sistema fullstack para gerenciamento de eventos e participantes desenvolvido com
 - **Tailwind CSS** para estilização
 - **Context API** para gerenciamento de estado
 
-## 📁 Estrutura do Projeto
+## ⚙️ Como Iniciar
 
-## 🛠️ Tecnologias Utilizadas
+### 1. Pré-requisitos
+- Node.js v18+
+- PostgreSQL v13+
+- npm ou yarn
 
-## 🔧 Pré-requisitos
+### 2. Instalação
 
-- **Node.js** v18 ou superior
-- **PostgreSQL** v13 ou superior
-- **npm** ou **yarn**
-
-## 🚀 Configuração e Instalação
-
-### 1. Clone o repositório
 ```bash
-git clone <url-do-repositorio>
+# Clone o repositório
+git clone https://github.com/Renan0004/Gerenciador-enventos.git
 cd Gerenciador-enventos
-```
 
-### 2. Configuração do Backend
-
-```bash
-# Navegue para a pasta do backend
+# Configure o Backend
 cd backend
-
-# Instale as dependências
 npm install
 
-# Configure as variáveis de ambiente
-# Crie um arquivo .env baseado no .env.example
-cp .env.example .env
-```
-
-Edite o arquivo `.env` com suas configurações:
-```env
-DATABASE_URL="postgresql://usuario:senha@localhost:5432/eventos_db"
+# Configure o banco de dados (.env)
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/eventos"
 PORT=3001
-NODE_ENV=development
-```
 
-```bash
-# Gere o cliente Prisma
+# Prepare o banco de dados
 npx prisma generate
-
-# Execute as migrations
-npx prisma migrate dev --name init
+npx prisma migrate dev
 
 # Inicie o servidor
 npm run dev
-```
 
-O backend estará rodando em `http://localhost:3001`
-
-## API Endpoints
-
-### Eventos
-
-- `POST /events` - Criar um evento
-- `GET /events` - Listar todos os eventos
-- `GET /events/:id` - Obter detalhes de um evento
-- `GET /events/:eventId/participants` - Listar participantes de um evento
-- `POST /events/:eventId/participants` - Inscrever um participante em um evento
-
-### Participantes
-
-- `POST /participants` - Criar um participante
-- `GET /participants` - Listar todos os participantes
-- `GET /participants/:id` - Obter detalhes de um participante
-- `GET /participants/:id/events` - Listar eventos de um participante
-
-### 3. Configuração do Frontend
-
-```bash
-# Em um novo terminal, navegue para a pasta do frontend
-cd frontend
-
-# Instale as dependências
+# Em outro terminal, configure o Frontend
+cd ../frontend
 npm install
-
-# Configure as variáveis de ambiente (opcional)
-# Crie um arquivo .env.local baseado no .env.example
-cp .env.example .env.local
-```
-
-Edite o arquivo `.env.local` se necessário:
-```env
-NEXT_PUBLIC_API_URL=http://localhost:3001
-```
-
-```bash
-# Inicie o servidor de desenvolvimento
 npm run dev
 ```
 
-O frontend estará rodando em `http://localhost:3000`
+## 🌐 Acesso
+- Interface: http://localhost:3000
+- API: http://localhost:3001
 
-## 🧪 Testando a Aplicação
+## 🔄 Principais Rotas
 
-1. Acesse `http://localhost:3000`
-2. Navegue para "Participantes" e crie alguns participantes
-3. Navegue para "Eventos" e crie alguns eventos
-4. Acesse os detalhes de um evento e inscreva participantes
+### Eventos
+- Criar eventos (nome, descrição, data)
+- Listar todos os eventos
+- Ver detalhes e participantes
+- Gerenciar inscrições
 
-## Tecnologias Utilizadas
-
-### Backend
-- Node.js
-- TypeScript
-- Express
-- Prisma
-- PostgreSQL
-
-### Frontend
-- React
-- TypeScript
-- Next.js
-- Tailwind CSS 
+### Participantes
+- Cadastrar participantes (nome, email, telefone)
+- Visualizar lista completa
+- Inscrever em eventos 
