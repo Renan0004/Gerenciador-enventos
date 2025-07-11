@@ -132,7 +132,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden mb-8 shadow-2xl">
               <div className="p-8">
                 <div className="flex items-start justify-between mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-gray-500/20 rounded-2xl flex items-center justify-center">
                     <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
@@ -140,7 +140,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
                   <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
                 </div>
                 
-                <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-300 to-gray-300 bg-clip-text text-transparent">
                   {event.name}
                 </h1>
                 
@@ -217,8 +217,8 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
               </div>
               
               <div>
-                <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent flex items-center">
-                  <svg className="w-8 h-8 mr-3 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-300 to-gray-300 bg-clip-text text-transparent flex items-center">
+                  <svg className="w-8 h-8 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                   </svg>
                   Inscrever Participante

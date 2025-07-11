@@ -256,7 +256,7 @@ export default function ParticipantModalForm({ onSuccess, onClose, isOpen, parti
           <button
             type="submit"
             disabled={loading}
-            className={`flex-1 px-4 py-3 bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base ${
+            className={`flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-gray-600 hover:from-blue-700 hover:to-gray-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base ${
               loading ? 'animate-pulse' : ''
             }`}
           >
