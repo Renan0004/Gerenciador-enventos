@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Participant } from '@/types';
 import ParticipantDetailModal from './ParticipantDetailModal';
 import ParticipantModalForm from './ParticipantModalForm';
+import ConfirmationModal from './ConfirmationModal';
+import Toast from './Toast';
 import { useRouter } from 'next/navigation';
 
 interface ParticipantCardProps {
@@ -14,29 +16,45 @@ interface ParticipantCardProps {
 export default function ParticipantCard({ participant, onUpdate }: ParticipantCardProps) {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' | 'warning'; isVisible: boolean } | null>(null);
   const router = useRouter();
   
   const handleDelete = async () => {
-    if (window.confirm('Tem certeza que deseja excluir este participante?')) {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/participants/${participant.id}`, {
-          method: 'DELETE',
-        });
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/participants/${participant.id}`, {
+        method: 'DELETE',
+      });
 
-        if (!response.ok) {
-          throw new Error('Erro ao excluir participante');
-        }
-
-        onUpdate(); // Chamar a função de atualização após excluir
-      } catch (error) {
-        console.error('Erro ao excluir participante:', error);
-        alert('Erro ao excluir participante. Tente novamente.');
+      if (!response.ok) {
+        throw new Error('Erro ao excluir participante');
       }
+
+      onUpdate(); // Chamar a função de atualização após excluir
+      
+      setToast({
+        message: `Participante "${participant.name}" excluído com sucesso!`,
+        type: 'success',
+        isVisible: true
+      });
+    } catch (error) {
+      console.error('Erro ao excluir participante:', error);
+      setToast({
+        message: 'Erro ao excluir participante. Tente novamente.',
+        type: 'error',
+        isVisible: true
+      });
+      throw error; // Propagar o erro para o ConfirmationModal
     }
   };
 
   const handleEditSuccess = () => {
     setIsEditModalOpen(false);
+    setToast({
+      message: `Participante "${participant.name}" atualizado com sucesso!`,
+      type: 'success',
+      isVisible: true
+    });
     onUpdate(); // Chamar a função de atualização após editar
   };
   
@@ -60,7 +78,7 @@ export default function ParticipantCard({ participant, onUpdate }: ParticipantCa
               </svg>
             </button>
             <button
-              onClick={handleDelete}
+              onClick={() => setIsDeleteModalOpen(true)}
               className="p-2 text-gray-400 hover:text-red-400 transition-colors"
               title="Excluir"
             >
@@ -104,6 +122,28 @@ export default function ParticipantCard({ participant, onUpdate }: ParticipantCa
         onSuccess={handleEditSuccess}
         participant={participant}
       />
+
+      {/* Modal de confirmação de exclusão */}
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleDelete}
+        title="Excluir Participante"
+        message={`Tem certeza que deseja excluir o participante "${participant.name}"? Esta ação não pode ser desfeita.`}
+        confirmText="Excluir"
+        cancelText="Cancelar"
+        type="danger"
+      />
+
+      {/* Toast de notificação */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          isVisible={toast.isVisible}
+          onClose={() => setToast(null)}
+        />
+      )}
     </>
   );
 } 

@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import ParticipantCard from '@/components/ParticipantCard';
-import Modal from '@/components/Modal';
 import ParticipantModalForm from '@/components/ParticipantModalForm';
+import Toast from '@/components/Toast';
 import { Participant } from '@/types';
 
+// Função para buscar participantes
 async function getParticipants(): Promise<Participant[]> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/participants`, {
     cache: 'no-store'
@@ -18,11 +19,13 @@ async function getParticipants(): Promise<Participant[]> {
   return res.json();
 }
 
+// Componente principal
 export default function ParticipantsPage() {
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' | 'warning'; isVisible: boolean } | null>(null);
 
   const loadParticipants = async () => {
     try {
@@ -44,6 +47,11 @@ export default function ParticipantsPage() {
 
   const handleParticipantCreated = () => {
     setIsModalOpen(false);
+    setToast({
+      message: 'Participante criado com sucesso!',
+      type: 'success',
+      isVisible: true
+    });
     loadParticipants(); // Recarregar participantes após criar
   };
   
@@ -122,17 +130,21 @@ export default function ParticipantsPage() {
         )}
 
         {/* Modal para criar participante */}
-        <Modal 
+        <ParticipantModalForm 
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          title="Criar Novo Participante"
-          size="md"
-        >
-          <ParticipantModalForm 
-            onSuccess={handleParticipantCreated}
-            onClose={() => setIsModalOpen(false)}
+          onSuccess={handleParticipantCreated}
+        />
+
+        {/* Toast de notificação */}
+        {toast && (
+          <Toast
+            message={toast.message}
+            type={toast.type}
+            isVisible={toast.isVisible}
+            onClose={() => setToast(null)}
           />
-        </Modal>
+        )}
       </div>
     </div>
   );
