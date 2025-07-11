@@ -124,5 +124,87 @@ export const eventController = {
       console.error('Erro ao adicionar participante ao evento:', error);
       return res.status(500).json({ error: 'Erro interno do servidor' });
     }
+  },
+
+  // Atualizar um evento
+  updateEvent: async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const { name, description, date } = req.body;
+
+      if (!name || !description || !date) {
+        return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
+      }
+
+      const eventDate = new Date(date);
+      if (isNaN(eventDate.getTime())) {
+        return res.status(400).json({ error: 'Data inválida' });
+      }
+
+      // Verificar se o evento existe
+      const existingEvent = await eventService.getEventById(id);
+      if (!existingEvent) {
+        return res.status(404).json({ error: 'Evento não encontrado' });
+      }
+
+      const event = await eventService.updateEvent(id, {
+        name,
+        description,
+        date: eventDate
+      });
+
+      return res.json(event);
+    } catch (error) {
+      console.error('Erro ao atualizar evento:', error);
+      return res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+  },
+
+  // Excluir um evento
+  deleteEvent: async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+
+      if (!validateUUID(id)) {
+        return res.status(400).json({ error: 'ID do evento inválido' });
+      }
+
+      // Verificar se o evento existe
+      const event = await eventService.getEventById(id);
+      if (!event) {
+        return res.status(404).json({ error: 'Evento não encontrado' });
+      }
+
+      await eventService.deleteEvent(id);
+      return res.status(204).send();
+    } catch (error) {
+      console.error('Erro ao excluir evento:', error);
+      return res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+  },
+
+  // Remover um participante de um evento
+  removeParticipantFromEvent: async (req: Request, res: Response) => {
+    try {
+      const { eventId, participantId } = req.params;
+
+      // Verificar se o evento existe
+      const event = await eventService.getEventById(eventId);
+      if (!event) {
+        return res.status(404).json({ error: 'Evento não encontrado' });
+      }
+
+      // Verificar se o participante existe
+      const participant = await participantService.getParticipantById(participantId);
+      if (!participant) {
+        return res.status(404).json({ error: 'Participante não encontrado' });
+      }
+
+      await eventService.removeParticipantFromEvent(eventId, participantId);
+      return res.status(204).send();
+    } catch (error) {
+      console.error('Erro ao remover participante do evento:', error);
+      return res.status(500).json({ error: 'Erro interno do servidor' });
+    }
   }
 }; 

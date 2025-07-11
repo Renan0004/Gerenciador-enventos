@@ -36,5 +36,26 @@ export const participantService = {
         event: true
       }
     });
+  },
+
+  // Atualizar um participante
+  updateParticipant: async (id: string, data: ParticipantInput) => {
+    return prisma.participant.update({
+      where: { id },
+      data
+    });
+  },
+
+  // Excluir um participante
+  deleteParticipant: async (id: string) => {
+    // Primeiro excluir todas as inscrições relacionadas
+    await prisma.enrollment.deleteMany({
+      where: { participantId: id }
+    });
+
+    // Depois excluir o participante
+    return prisma.participant.delete({
+      where: { id }
+    });
   }
 }; 

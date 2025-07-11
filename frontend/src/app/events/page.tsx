@@ -118,17 +118,11 @@ export default function EventsPage() {
       )}
 
         {/* Modal para criar evento */}
-        <Modal 
+        <EventModalForm 
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          title="Criar Novo Evento"
-          size="md"
-        >
-          <EventModalForm 
-            onSuccess={handleEventCreated}
-            onClose={() => setIsModalOpen(false)}
-          />
-        </Modal>
+          onSuccess={handleEventCreated}
+        />
       </div>
     </div>
   );

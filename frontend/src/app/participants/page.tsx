@@ -30,9 +30,9 @@ export default function ParticipantsPage() {
       setError(null);
       const participantsData = await getParticipants();
       setParticipants(participantsData);
-  } catch (e) {
+    } catch (e) {
       setError('Não foi possível carregar os participantes. Tente novamente mais tarde.');
-    console.error('Erro ao buscar participantes:', e);
+      console.error('Erro ao buscar participantes:', e);
     } finally {
       setLoading(false);
     }
@@ -60,24 +60,24 @@ export default function ParticipantsPage() {
           <button 
             onClick={() => setIsModalOpen(true)}
             className="group relative px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-emerald-500/25 flex items-center justify-center space-x-2 text-sm sm:text-base"
-        >
+          >
             <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
             </svg>
             <span>Criar Participante</span>
           </button>
-      </div>
+        </div>
       
-      {error && (
+        {error && (
           <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl mb-6 backdrop-blur-sm">
             <div className="flex items-center">
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-          {error}
+              {error}
             </div>
-        </div>
-      )}
+          </div>
+        )}
       
         {loading ? (
           <div className="text-center py-12 sm:py-20">
@@ -108,14 +108,18 @@ export default function ParticipantsPage() {
               </svg>
               Criar Primeiro Participante
             </button>
-        </div>
-      ) : (
+          </div>
+        ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-          {participants.map((participant) => (
-            <ParticipantCard key={participant.id} participant={participant} />
-          ))}
-        </div>
-      )}
+            {participants.map((participant) => (
+              <ParticipantCard 
+                key={participant.id} 
+                participant={participant} 
+                onUpdate={loadParticipants}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Modal para criar participante */}
         <Modal 

@@ -25,6 +25,27 @@ export const eventService = {
     });
   },
 
+  // Atualizar um evento
+  updateEvent: async (id: string, data: EventInput) => {
+    return prisma.event.update({
+      where: { id },
+      data
+    });
+  },
+
+  // Excluir um evento
+  deleteEvent: async (id: string) => {
+    // Primeiro excluir todas as inscrições relacionadas
+    await prisma.enrollment.deleteMany({
+      where: { eventId: id }
+    });
+
+    // Depois excluir o evento
+    return prisma.event.delete({
+      where: { id }
+    });
+  },
+
   // Obter participantes de um evento
   getEventParticipants: async (eventId: string) => {
     return prisma.enrollment.findMany({
@@ -45,6 +66,18 @@ export const eventService = {
       include: {
         event: true,
         participant: true
+      }
+    });
+  },
+
+  // Remover um participante de um evento
+  removeParticipantFromEvent: async (eventId: string, participantId: string) => {
+    return prisma.enrollment.delete({
+      where: {
+        eventId_participantId: {
+          eventId,
+          participantId
+        }
       }
     });
   }
