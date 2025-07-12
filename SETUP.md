@@ -5,6 +5,7 @@
 - Node.js v18+
 - npm ou yarn
 - Git
+- PostgreSQL v13+
 
 ## ⚙️ Configuração Inicial
 
@@ -24,15 +25,6 @@ npm install
 ### 3. Configuração do Banco de Dados
 
 **Crie um arquivo `.env` na pasta `backend` com o seguinte conteúdo:**
-
-#### Opção A: SQLite (Recomendado para desenvolvimento)
-```env
-DATABASE_URL="sqlite:./dev.db"
-PORT=3001
-NODE_ENV=development
-```
-
-#### Opção B: PostgreSQL
 ```env
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/eventos"
 PORT=3001
@@ -110,7 +102,6 @@ npm run start        # Produção
 ### Erro de Conexão com Banco
 - Verifique se o arquivo `.env` existe na pasta `backend`
 - Confirme se a `DATABASE_URL` está correta
-- Para SQLite, certifique-se de que a pasta tem permissões de escrita
 
 ### Erro de Porta em Uso
 - Altere a porta no arquivo `.env` (ex: PORT=3002)
@@ -125,8 +116,7 @@ npx prisma migrate dev
 
 ## 📝 Notas Importantes
 
-- O projeto usa SQLite por padrão para facilitar o desenvolvimento
-- Para produção, recomenda-se PostgreSQL
+- O projeto usa exclusivamente PostgreSQL
 - Todas as validações são feitas no backend
 - O frontend usa Context API para gerenciamento de estado
 - Interface responsiva com Tailwind CSS 

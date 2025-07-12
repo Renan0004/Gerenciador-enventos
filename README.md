@@ -8,7 +8,7 @@ Desenvolver uma aplicação fullstack simples para gerenciar eventos e participa
 
 ## ✨ Funcionalidades Implementadas
 
-### 📌 Backend (Node.js + TypeScript + SQLite/PostgreSQL)
+### 📌 Backend (Node.js + TypeScript + PostgreSQL)
 
 **API REST com as seguintes rotas:**
 
@@ -45,7 +45,7 @@ Desenvolver uma aplicação fullstack simples para gerenciar eventos e participa
 - **Node.js** com **TypeScript**
 - **Express.js** para API REST
 - **Prisma** como ORM
-- **SQLite** para desenvolvimento (configurável para PostgreSQL)
+- **PostgreSQL** como banco de dados
 - **Validações** com middlewares customizados
 - **Tratamento de erros** centralizado
 
@@ -92,6 +92,7 @@ Gerenciador-enventos/
 - Node.js v18+
 - npm ou yarn
 - Git
+- PostgreSQL v13+
 
 ### 1. Clone o repositório
 ```bash
@@ -107,19 +108,15 @@ npm install
 
 ### 3. Configure o banco de dados
 
-**Opção A: SQLite (Recomendado para desenvolvimento)**
-```bash
-# O banco SQLite será criado automaticamente
-npx prisma migrate dev
-```
-
-**Opção B: PostgreSQL**
-```bash
-# Crie um arquivo .env na pasta backend
+Crie um arquivo `.env` na pasta backend com o seguinte conteúdo:
+```env
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/eventos"
 PORT=3001
+NODE_ENV=development
+```
 
-# Execute as migrações
+**Execute as migrações:**
+```bash
 npx prisma migrate dev
 ```
 
@@ -225,9 +222,7 @@ npm run start        # Inicia servidor de produção
 
 ### Variáveis de Ambiente (Backend)
 ```env
-DATABASE_URL="sqlite:./dev.db"    # Para SQLite
-# ou
-DATABASE_URL="postgresql://..."   # Para PostgreSQL
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/eventos"
 PORT=3001
 NODE_ENV=development
 ```
